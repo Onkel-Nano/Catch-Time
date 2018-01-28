@@ -1,0 +1,3 @@
+new work time: 
+-fix issue where user can choose a 2 days time range => show 2 days as 'date'
+-catch-for-now-button for work times which started but didn't finish yet
