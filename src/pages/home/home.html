@@ -1,14 +1,21 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons end>
+      <button (click)="loadNewWorkTime()" ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
-      Ionic Blank
+      Catch Time
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list inset>
+    <ion-item *ngFor="let workTime of workTimes">
+      <ion-label stacked>{{workTime.date | date : 'dd.MM.yy'}}</ion-label>
+      <ion-label>{{workTime.start + ' '}}-{{' ' + workTime.end}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

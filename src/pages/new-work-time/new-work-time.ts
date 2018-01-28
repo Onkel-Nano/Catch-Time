@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the NewWorkTimePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { WorkTime } from '../../classes/WorkTime';
+import { WorkTimeService } from '../../services/work-time.service';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NewWorkTimePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private workTime: WorkTime = new WorkTime();
+
+  constructor(private workTimeService: WorkTimeService, public navCtrl: NavController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewWorkTimePage');
+  addWorkTime() {
+    this.workTimeService.addWorkTime(this.workTime);
+    this.navCtrl.pop();
   }
-
 }
