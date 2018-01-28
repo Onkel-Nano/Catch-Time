@@ -24,10 +24,6 @@ export class NewWorkTimePage {
     this.validateDayOverflow();
   }
 
-  toggleLabelColor(id : string){
-    
-  }
-
   validateDayOverflow() {
     let start = this.workTimeForm.get('start');
     let end = this.workTimeForm.get('end');

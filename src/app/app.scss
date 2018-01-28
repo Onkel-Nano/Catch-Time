@@ -1,14 +1,12 @@
 ion-textarea textarea{
     height: 7em;
     font-style: italic;
+    resize: none;
 }
-ion-item.item-input-has-focus div.item-inner div ion-label{
-    color: rgb(39, 155, 73) !important;
+.item-input-has-focus .label-md[fixed] , .input-has-focus .label-md[fixed] {
+    color: red;
 }
-ion-label{
-    font-weight: 500;
-    color:black !important;
-}
+
 .fs-1{
     font-size: 1em !important;
 }
