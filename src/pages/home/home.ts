@@ -17,7 +17,7 @@ export class HomePage {
 
   ionViewWillEnter(){
     //only in dev-mode
-    this.workTimeService.deleteWorkTime(); 
+    // this.workTimeService.deleteWorkTime(); 
 
     this.workTimeService.getWorkTime().then(
       workedTime => {

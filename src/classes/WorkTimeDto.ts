@@ -4,5 +4,5 @@ export class WorkTimeDto {
     start: Date;
     end: Date;
     dayOverflow: boolean = false;
-    comment: string = '';
+    comment: string = ' ';
 }

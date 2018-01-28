@@ -34,7 +34,15 @@ export class NewWorkTimePage {
   }
 
   addWorkTime() {
+    this.fillWorkTimeDto();
     this.workTimeService.addWorkTime(this.workTimeDto);
     this.navCtrl.pop();
+  }
+
+  fillWorkTimeDto(){
+    this.workTimeDto.date = this.workTimeForm.get('date').value;
+    this.workTimeDto.start = this.workTimeForm.get('start').value;
+    this.workTimeDto.end = this.workTimeForm.get('end').value;
+    this.workTimeDto.comment = this.workTimeForm.get('comment').value;
   }
 }
