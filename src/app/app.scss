@@ -6,7 +6,11 @@ ion-textarea textarea{
 .item-input-has-focus .label-md[fixed] , .input-has-focus .label-md[fixed] {
     color: red;
 }
-
+.day-overflow{
+    // float: right;
+    font-weight: 450 !important;
+    color: grey;
+}
 .fs-1{
     font-size: 1em !important;
 }

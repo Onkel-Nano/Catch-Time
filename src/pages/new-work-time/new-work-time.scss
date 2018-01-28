@@ -1,6 +1,4 @@
 page-new-work-time {
-$label-ios-text-color-focused : red;
-$label-md-text-color-focused : red;
 
 ion-datetime button:hover{
     border-bottom: 1px solid rgb(39, 155, 73);
@@ -10,8 +8,6 @@ ion-item.item-input-has-focus div.item-inner div ion-label{
 }
 .day-overflow{
     float: right;
-    font-weight: 450 !important;
-    color: darkgoldenrod;
 }
 ion-label{
     font-weight: 500;

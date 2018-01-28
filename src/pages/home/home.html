@@ -15,7 +15,9 @@
   <ion-list inset>
     <ion-item *ngFor="let workTime of workedTimes">
       <ion-label stacked>{{workTime.date | date : 'dd.MM.yy'}}</ion-label>
-      <ion-label>{{workTime.start + ' '}}-{{' ' + workTime.end}}</ion-label>
+      <ion-label item-content>{{workTime.start + ' '}}-{{' ' + workTime.end}}
+          <span item-content class="day-overflow" *ngIf="workTime.dayOverflow" >(Folgetag)</span>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
