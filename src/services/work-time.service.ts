@@ -8,16 +8,18 @@ export class WorkTimeService{
     private workedTime: WorkTime[] = [];
     
     constructor(private storage: Storage){}
+    
 
     addWorkTime(workTime: WorkTime){
         this.workedTime.push(workTime);
         this.storage.set('workedTime', this.workedTime);
     }
-
+    deleteWorkTime(){
+        this.storage.remove('workedTime');
+    }
     getWorkTime(){
         return this.storage.get('workedTime').then(
             workedTime => {
-                console.log(workedTime)
                 this.workedTime = workedTime == null ? [] : workedTime;
                 return this.workedTime.slice();
             }
