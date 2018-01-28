@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NewWorkTimePage } from '../new-work-time/new-work-time';
 import { WorkTimeService } from '../../services/work-time.service';
-import { WorkTime } from '../../classes/WorkTime';
+import { WorkTimeDto } from '../../classes/WorkTimeDto';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +10,7 @@ import { WorkTime } from '../../classes/WorkTime';
 })
 export class HomePage {
 
-  workTimes: WorkTime[] = [];
+  workedTimes: WorkTimeDto[] = [];
 
   constructor(public navCtrl: NavController, private workTimeService: WorkTimeService) {
   }
@@ -21,7 +21,7 @@ export class HomePage {
 
     this.workTimeService.getWorkTime().then(
       workedTime => {
-        this.workTimes = workedTime;
+        this.workedTimes = workedTime;
       }
     );
   }

@@ -13,7 +13,7 @@
 
 <ion-content padding>
   <ion-list inset>
-    <ion-item *ngFor="let workTime of workTimes">
+    <ion-item *ngFor="let workTime of workedTimes">
       <ion-label stacked>{{workTime.date | date : 'dd.MM.yy'}}</ion-label>
       <ion-label>{{workTime.start + ' '}}-{{' ' + workTime.end}}</ion-label>
     </ion-item>
