@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center">
+    {{workTime.date | date: 'EE, dd MMMM yyyy'}} 
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="changeWorkTime()" #workTimeForm="ngForm">
+      <ion-list inset>
+        <ion-item>
+          <ion-label>Von</ion-label>
+          <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.start" name="start" required></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Bis</ion-label>
+          <ion-datetime  displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.end" name="end" required></ion-datetime>
+          <ion-label>
+            <p *ngIf="workTime.dayOverflow" class="day-overflow">(Folgetag)</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="fs-1" stacked>Anmerkungen</ion-label>
+          <ion-textarea type="textarea" name="comment" [(ngModel)]="workTime.comment" placeholder="Ist etwas besonderes vorgefallen?"></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <button type="submit" [disabled]="workTimeForm.invalid" ion-button block>CATCH</button>
+    </form>
+    <button (click)="dismiss()" style="background:crimson" ion-button block>ABBRECHEN</button>
+</ion-content>
