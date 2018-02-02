@@ -13,9 +13,6 @@ import 'moment/locale/de'
   templateUrl: 'day-overview.html',
 })
 export class DayOverviewPage {
-  private workTime: WorkTimeDto;
-  private workTimeOrigin: WorkTimeDto;
-
   constructor(
     private viewCtrl: ViewController,
     private navParams: NavParams,
@@ -25,6 +22,30 @@ export class DayOverviewPage {
     this.workTime = Object.assign({}, this.navParams.data);
   }
 
+  private workTime: WorkTimeDto;
+  private workTimeOrigin: WorkTimeDto;
+  private invalid = true;
+  public customOptions: any = {
+    buttons: [{
+      text: 'Löschen',
+      handler: () => this.workTime.end = null
+    }]
+  }
+  
+  ngDoCheck() {
+    this.validateForm();
+  }
+
+  validateForm() {
+    if (
+      this.workTime.start == this.workTimeOrigin.start &&
+      this.workTime.end == this.workTimeOrigin.end &&
+      this.workTime.comment == this.workTimeOrigin.comment
+    )
+      this.invalid = true;
+    else
+      this.invalid = false;
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }
@@ -34,8 +55,8 @@ export class DayOverviewPage {
     this.viewCtrl.dismiss();
   }
   deleteWorkTime() {
-    
   }
+
   formatDate(date: any) {
     return moment(date).format('dd, DD. MMMM');
   }

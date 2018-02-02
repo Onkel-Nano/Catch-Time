@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 import { ReactiveFormsModule } from '@angular/forms';
-import moment from 'moment'
 
 import { MyApp } from './app.component';
 

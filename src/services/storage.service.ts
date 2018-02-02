@@ -37,20 +37,17 @@ export class StorageService {
 
     changeWorkTime(workTime: WorkTimeDto) {
         let key = this.createStorageKey(workTime.date);
-        let searching: boolean = true;
+        let tmp: WorkTimeDto[] = [];
 
         this.storage.get('workedTime/' + key).then(
             workedTime => {
-                console.log(workedTime)
-                for (let index = 0; index < this.workedTimeDto.length && searching; index++) {
-                    if (moment(this.workedTimeDto[index].date).format('DD') == moment(workTime.date).format('DD')) {
-                        this.workedTimeDto.splice(index, 1);
-                        this.workedTimeDto.push(workTime);
-                        searching = false;
-                        console.log(this.workedTimeDto)
-                    }
-                };
-                this.storage.set('workedTime/' + key, this.workedTimeDto);
+                workedTime.forEach(w => {
+                    if (moment(w.date).format('DD') == moment(workTime.date).format('DD')) {
+                        tmp.push(workTime);
+                    } else
+                        tmp.push(w);
+                });
+                this.storage.set('workedTime/' + key, tmp);
             }
         )
 
