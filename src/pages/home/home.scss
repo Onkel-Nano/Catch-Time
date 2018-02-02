@@ -1,3 +1,23 @@
 page-home {
-
+    .calendar-overview{
+        color: black;
+        border-radius: 1em;
+        background-color: color($colors, secondary-main);
+    }
+    .calendar-row:not(:first-of-type){
+        border-top: 1px solid white;
+    }
+    .calendar-day{
+        text-align: center; 
+        padding-top:1.2em; 
+        font-size: 18px
+    }
+    
+    .past-overview{
+        border-radius: 1em; 
+        color: black; 
+        height: 2em;
+        font-size: 18px;
+        text-align: center;
+    }
 }

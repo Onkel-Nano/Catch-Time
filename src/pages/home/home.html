@@ -1,21 +1,49 @@
-<ion-header>
+<ion-header >
   <ion-navbar>
-    <ion-buttons end>
-      <button (click)="loadNewWorkTime()" ion-button icon-only>
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>
+    <ion-title color="light" class="text-c">
       Catch Time
     </ion-title>
+    <ion-buttons end>
+      <button (click)="loadNewWorkTime()" ion-button icon-only>
+        <ion-icon color="light" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list inset>
-    <ion-item *ngFor="let workTime of workedTimes">
-      <ion-label stacked>{{workTime.date | date : 'dd.MM.yy'}}</ion-label>
-      <ion-label>{{workTime.start + ' '}}-{{' ' + workTime.end}}</ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content padding class="background-theme">
+  <div class="past-overview">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <b>29. Jan</b> - <b>04. Feb</b>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+<hr>
+  <div class="calendar-overview">
+    <ion-grid>
+      <ion-row class="calendar-row" *ngFor="let weekDay of weekDays" (click)="loadDayOverview(weekDay)">
+        <ion-col class="calendar-day">
+          {{formatDay(weekDay.date)}}
+        </ion-col>
+        <ion-col col-10>
+          <ion-row>
+            <ion-col>
+              {{formatDate(weekDay.date)}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="calendar-input">
+              <div *ngIf="weekDay.start">
+                {{weekDay.start + ' '}}-{{' ' + weekDay.end}}
+                <span item-content class="day-overflow" *ngIf="weekDay.dayOverflow">(Folgetag)</span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

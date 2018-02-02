@@ -1,0 +1,10 @@
+page-day-overview {
+    .day-overflow{
+        float: right;
+    }
+    
+    #delete{
+        background:  color($colors, danger);
+        width: 5em;
+    }
+}
