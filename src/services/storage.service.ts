@@ -1,6 +1,6 @@
-import { Injectable, as } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import moment from "moment";
+import * as moment from "moment";
 import 'moment/locale/de'
 
 import { WorkTimeDto } from "../classes/WorkTimeDto";
@@ -12,7 +12,7 @@ export class StorageService {
     constructor(private storage: Storage) { }
 
     addWorkTime(workTime: WorkTimeDto) {
-        let key = this.createStorageKey(moment(workTime.date));
+        let key = this.createStorageKey(workTime.date);
 
         this.storage.get('workedTime/' + key).then(
             workedTime => {
@@ -23,38 +23,40 @@ export class StorageService {
         )
     }
 
-    getWorkTime(date: Date) {
+    getWorkTime(date: any) {
 
         let key = this.createStorageKey(date);
         // this.storage.remove('workedTime/' + key)
         return this.storage.get('workedTime/' + key).then(
             workedTime => {
                 this.workedTimeDto = workedTime == null ? [] : workedTime;
-                return Object.assign([], this.workedTimeDto);
+                return this.workedTimeDto.slice();
             }
         );
     }
 
     changeWorkTime(workTime: WorkTimeDto) {
-        let key = this.createStorageKey(moment(workTime.date));
+        let key = this.createStorageKey(workTime.date);
+        let searching: boolean = true;
 
         this.storage.get('workedTime/' + key).then(
             workedTime => {
-                console.log('in');
-                workedTime.forEach(function (w: WorkTimeDto, index: any) {
-                    if (moment(w.date).format('DD') == moment(workTime.date).format('DD')) {
-                        workedTime.splice(index, 1);
-                        workedTime.push(workTime);
-                        console.log('in');
+                console.log(workedTime)
+                for (let index = 0; index < this.workedTimeDto.length && searching; index++) {
+                    if (moment(this.workedTimeDto[index].date).format('DD') == moment(workTime.date).format('DD')) {
+                        this.workedTimeDto.splice(index, 1);
+                        this.workedTimeDto.push(workTime);
+                        searching = false;
+                        console.log(this.workedTimeDto)
                     }
-                });
-                this.storage.set('workedTime/' + key, workedTime);
+                };
+                this.storage.set('workedTime/' + key, this.workedTimeDto);
             }
         )
 
     }
 
     createStorageKey(date: Date) {
-        return date.format('MM-YYYY')
+        return moment(date).format('MM-YYYY')
     }
 }

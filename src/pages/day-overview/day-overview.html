@@ -1,32 +1,46 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title style="text-align: center">
-    {{workTime.date | date: 'EE, dd MMMM yyyy'}} 
+    <ion-title class="text-c">
+    {{formatDate(workTime.date)}} 
     </ion-title>
+    <ion-buttons>
+      <button (click)="dismiss()" ion-button icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="background-theme" padding>
   <form (ngSubmit)="changeWorkTime()" #workTimeForm="ngForm">
-      <ion-list inset>
+      <ion-list class="picker-layout" inset>
         <ion-item>
           <ion-label>Von</ion-label>
-          <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.start" name="start" required></ion-datetime>
+          <ion-datetime class="picker-input" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.start"
+          doneText="Fertig" cancelText="Abbrechen" name="start" required></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>Bis</ion-label>
-          <ion-datetime  displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.end" name="end" required></ion-datetime>
           <ion-label>
             <p *ngIf="workTime.dayOverflow" class="day-overflow">(Folgetag)</p>
           </ion-label>
+          <ion-datetime class="picker-input" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.end" 
+          doneText="Fertig" cancelText="Abbrechen" name="end" required></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label class="fs-1" stacked>Anmerkungen</ion-label>
           <ion-textarea type="textarea" name="comment" [(ngModel)]="workTime.comment" placeholder="Ist etwas besonderes vorgefallen?"></ion-textarea>
         </ion-item>
       </ion-list>
-      <button type="submit" [disabled]="workTimeForm.invalid" ion-button block>CATCH</button>
+
+      <ion-buttons class="text-c">
+        <button id="submit" class="picker-button" icon-only type="submit" [disabled]="workTimeForm.invalid" ion-button>
+          <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>
+        </button>
+        <button id="delete" class="picker-button" type="button" icon-only (click)="deleteWorkTime()" style="background:crimson" ion-button>
+          <ion-icon name='trash'></ion-icon>
+        </button>
+      </ion-buttons>
     </form>
-    <button (click)="dismiss()" style="background:crimson" ion-button block>ABBRECHEN</button>
+
 </ion-content>

@@ -2,18 +2,53 @@ ion-textarea textarea{
     height: 7em;
     font-style: italic;
     resize: none;
+    background: white !important;
+    margin-bottom: 1em !important;
+    padding: 5px !important;
+    border-radius: 0.5em !important;
+    color:black;
+}
+ion-item.item-input-has-focus:hover{
+    background-color:  color($colors, secondary-main) !important;
+}
+ion-item.item-input-has-focus:hover ion-label,ion-item.item-input-has-focus:hover ion-datetime{
+    color: color($colors, light) !important;
+}
+hr{
+    background-color:rgba(255, 255, 255, 0.171) !important;
+}
+.background-theme{
+    background: linear-gradient(color($colors, background), white),
 }
 .item-input-has-focus .label-md[fixed] , .input-has-focus .label-md[fixed] {
     color: red;
 }
 .day-overflow{
-    // float: right;
     font-weight: 450 !important;
-    color: grey;
+    color: crimson !important;
 }
 .fs-1{
     font-size: 1em !important;
 }
+.text-c{
+    text-align: center;
+}
 .ml-1{
     margin-left: 1em !important;
+}
+.calendar-input{
+    background-color: white;
+    height: 2em; 
+    border-radius:0.7em;
+    color: black;
+}
+.picker-layout{
+    border-radius: 1em !important;
+}
+.picker-button{
+    border-radius: 2em;
+}
+#submit{
+    background:  color($colors, submit);
+    width: 14em;
 }
