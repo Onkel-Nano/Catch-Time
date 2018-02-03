@@ -13,6 +13,7 @@ import { NewWorkTimePage } from '../pages/new-work-time/new-work-time';
 import { DayOverviewPage } from '../pages/day-overview/day-overview';
 
 import { StorageService } from '../services/storage.service';
+import { WorkTimeService } from '../services/work-time.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { StorageService } from '../services/storage.service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    StorageService
+    StorageService,
+    WorkTimeService
   ]
 })
 export class AppModule {}

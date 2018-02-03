@@ -5,6 +5,7 @@ import { WorkTimeDto } from '../../classes/WorkTimeDto';
 import { StorageService } from '../../services/storage.service';
 import * as moment from 'moment';
 import 'moment/locale/de'
+import { WorkTimeService } from '../../services/work-time.service';
 
 
 @IonicPage()
@@ -16,7 +17,8 @@ export class DayOverviewPage {
   constructor(
     private viewCtrl: ViewController,
     private navParams: NavParams,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private workTimeService: WorkTimeService
   ) {
     this.workTimeOrigin = this.navParams.data;
     this.workTime = Object.assign({}, this.navParams.data);
@@ -31,9 +33,12 @@ export class DayOverviewPage {
       handler: () => this.workTime.end = null
     }]
   }
-  
+
   ngDoCheck() {
     this.validateForm();
+    this.workTime.dayOverflow = this.workTimeService.validateDayOverflow(
+      this.workTime.start,
+      this.workTime.end);
   }
 
   validateForm() {
@@ -46,15 +51,19 @@ export class DayOverviewPage {
     else
       this.invalid = false;
   }
+  
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
   changeWorkTime() {
-    this.storageService.changeWorkTime(this.workTime);
-    this.workTimeOrigin = this.workTime;
-    this.viewCtrl.dismiss();
+    this.storageService.saveWorkTime(this.workTime);
+    this.viewCtrl.dismiss(this.workTime);
   }
+
   deleteWorkTime() {
+    this.storageService.deleteWorkTime(this.workTime);
+    this.viewCtrl.dismiss(null);
   }
 
   formatDate(date: any) {

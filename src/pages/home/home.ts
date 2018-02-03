@@ -82,7 +82,6 @@ export class HomePage {
     this.navCtrl.push(NewWorkTimePage);
   }
   loadDayOverview(weekDay: WorkTimeDto) {
-    // let mockWorkTime = JSON.parse(JSON.stringify(weekDay));
     this.modalCtrl.create(DayOverviewPage, weekDay).present();
   }
   //End of Navigation

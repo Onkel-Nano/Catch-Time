@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { WorkTimeDto } from '../../classes/WorkTimeDto';
 import { StorageService } from '../../services/storage.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { WorkTimeService } from '../../services/work-time.service';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: 'new-work-time.html',
 })
 export class NewWorkTimePage {
-  constructor(private storageService: StorageService, public navCtrl: NavController) { }
+  constructor(
+    private storageService: StorageService,
+    public navCtrl: NavController,
+    private workTimeService: WorkTimeService
+  ) { }
 
   private workTimeDto: WorkTimeDto = new WorkTimeDto();
   private workTimeForm = new FormGroup({
@@ -21,25 +26,21 @@ export class NewWorkTimePage {
   });
 
   ngDoCheck() {
-    this.validateDayOverflow();
-  }
-
-  validateDayOverflow() {
-    let start = this.workTimeForm.get('start');
-    let end = this.workTimeForm.get('end');
-    if (start.value >= end.value && end.dirty) {
-      this.workTimeDto.dayOverflow = true;
-    } else
-      this.workTimeDto.dayOverflow = false;
+    if (this.workTimeForm.get('end').dirty &&
+      this.workTimeForm.get('start').dirty) {
+      this.workTimeDto.dayOverflow = this.workTimeService.validateDayOverflow(
+        this.workTimeForm.get('start').value,
+        this.workTimeForm.get('end').value);
+    }
   }
 
   addWorkTime() {
     this.fillWorkTimeDto();
-    this.storageService.addWorkTime(this.workTimeDto);
+    this.storageService.saveWorkTime(this.workTimeDto);
     this.navCtrl.pop();
   }
 
-  fillWorkTimeDto(){
+  fillWorkTimeDto() {
     this.workTimeDto.date = this.workTimeForm.get('date').value;
     this.workTimeDto.start = this.workTimeForm.get('start').value;
     this.workTimeDto.end = this.workTimeForm.get('end').value;

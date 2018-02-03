@@ -4,29 +4,19 @@ import * as moment from "moment";
 import 'moment/locale/de'
 
 import { WorkTimeDto } from "../classes/WorkTimeDto";
+import { WorkTimeService } from "./work-time.service";
 
 @Injectable()
 export class StorageService {
     private workedTimeDto: WorkTimeDto[] = [];
 
-    constructor(private storage: Storage) { }
-
-    addWorkTime(workTime: WorkTimeDto) {
-        let key = this.createStorageKey(workTime.date);
-
-        this.storage.get('workedTime/' + key).then(
-            workedTime => {
-                this.workedTimeDto = workedTime == null ? [] : workedTime;
-                this.workedTimeDto.push(workTime);
-                this.storage.set('workedTime/' + key, this.workedTimeDto);
-            }
-        )
-    }
+    constructor(
+        private storage: Storage,
+        private workTimeService: WorkTimeService
+    ) { }
 
     getWorkTime(date: any) {
-
         let key = this.createStorageKey(date);
-        // this.storage.remove('workedTime/' + key)
         return this.storage.get('workedTime/' + key).then(
             workedTime => {
                 this.workedTimeDto = workedTime == null ? [] : workedTime;
@@ -35,22 +25,29 @@ export class StorageService {
         );
     }
 
-    changeWorkTime(workTime: WorkTimeDto) {
+    saveWorkTime(workTime: WorkTimeDto) {
         let key = this.createStorageKey(workTime.date);
+        workTime = this.workTimeService.adaptToStorage(workTime);
         let tmp: WorkTimeDto[] = [];
 
         this.storage.get('workedTime/' + key).then(
             workedTime => {
-                workedTime.forEach(w => {
-                    if (moment(w.date).format('DD') == moment(workTime.date).format('DD')) {
-                        tmp.push(workTime);
-                    } else
-                        tmp.push(w);
-                });
+                this.workTimeService.filterWorkTimeArray(workedTime, workTime.date, tmp);
+                tmp.push(workTime);
                 this.storage.set('workedTime/' + key, tmp);
             }
         )
-
+    }
+    deleteWorkTime(workTime: WorkTimeDto){
+        let key = this.createStorageKey(workTime.date);
+        let tmp: WorkTimeDto[] = [];
+        
+        this.storage.get('workedTime/' + key).then(
+            workedTime => {
+                this.workTimeService.filterWorkTimeArray(workedTime, workTime.date, tmp);
+                this.storage.set('workedTime/' + key, tmp);
+            }
+        )
     }
 
     createStorageKey(date: Date) {
