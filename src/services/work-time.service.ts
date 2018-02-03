@@ -29,10 +29,12 @@ export class WorkTimeService {
     }
     
     filterWorkTimeArray(workedTime: WorkTimeDto[], filter: Date, target: WorkTimeDto[]){
-        workedTime.forEach(w => {
-            if (moment(w.date).format('DD') != moment(filter).format('DD')) {
-                target.push(w);
-            } 
-        });
+        if(workedTime){
+            workedTime.forEach(w => {
+                if (moment(w.date).format('DD') != moment(filter).format('DD')) {
+                    target.push(w);
+                } 
+            });
+        }
     }
 }
