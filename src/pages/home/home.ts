@@ -17,6 +17,7 @@ import { DayOverviewPage } from '../day-overview/day-overview';
 export class HomePage {
 
   workedTimes: WorkTimeDto[][] = [];
+  private collapseIn: boolean = false;
   private weekDays: any[] = [
     { date: moment().day(1) },
     { date: moment().day(2) },
@@ -34,6 +35,14 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.initWorkTime();
+  }
+
+  toggleCollapse(){
+    this.collapseIn = !this.collapseIn;
+  }
+
+  isCollapseIn(){
+    return this.collapseIn;
   }
 
   private initWorkTime() {

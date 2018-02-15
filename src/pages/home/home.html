@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title color="light">
-        <!-- <link rel="icon" type="image/png" href="../assets/imgs/CatchTimeLogo.png" /> -->
+      <!-- <link rel="icon" type="image/png" href="../assets/imgs/CatchTimeLogo.png" /> -->
       <!-- <img src="../assets/imgs/CatchTimeLogo.png" alt=""> -->
       Catch Time
     </ion-title>
@@ -12,15 +12,56 @@
     </ion-buttons>
   </ion-navbar>
   <ion-title class="past-overview">
-    <i class="fa fa-caret-left"></i>
-     05. Feb - 11. Feb 
-    <i class="fa fa-caret-right"></i>
+    <button ion-button icon-only class="fa fa-caret-left btn-caret"></button>
+    <button ion-button (click)="toggleCollapse()">
+      05. Feb - 11. Feb
+    </button>
+    <button ion-button icon-only class="fa fa-caret-right btn-caret"></button>
   </ion-title>
 </ion-header>
 
 <ion-content padding class="background-theme">
-  
-  <div class="calendar-overview">
+  <ion-list>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Januar</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Februar</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>März</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>April</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Mai</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Juni</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Juli</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>August</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>September</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Oktober</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>November</ion-label>
+    </ion-item>
+    <ion-item [ngClass]="isCollapseIn() ? 'collapse-in' : 'collapse-out'">
+      <ion-label>Dezember</ion-label>
+    </ion-item>
+  </ion-list>
+
+
+  <div *ngIf="!isCollapseIn()" class="calendar-overview">
     <ion-grid>
       <ion-row class="calendar-row" *ngFor="let weekDay of weekDays" (click)="loadDayOverview(weekDay)">
         <ion-col class="calendar-day">

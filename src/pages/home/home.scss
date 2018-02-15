@@ -1,14 +1,17 @@
 page-home {
     .calendar-overview{
         color: black;
-        // border-radius: 1em;
-        // background-color: color($colors, secondary-main);
     }
     .calendar-overview > ion-grid {
         padding-top: 0;
     }
+
+    .calendar-row{
+        padding: 5px;
+    }
+
     .calendar-row:not(:first-of-type){
-        border-top: 1px solid rgba(1, 189, 183, 0.61);
+        border-top: 1px solid color($colors, list-border);
     }
     .calendar-day{
         text-align: center; 
@@ -27,8 +30,53 @@ page-home {
         background: #df274c;
         font-size: 18px;
         text-align: center;
+        display: block;
     }
     .past-overview div{
         font-weight: lighter !important;
-    } 
+    }
+    .past-overview button,.past-overview button:hover:focus{
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .btn-caret{
+        padding-top: 0.7em !important;
+    }
+
+    .collapse-out{
+        z-index: 2;
+        margin-top: -3em;
+        bottom: 20px;
+        animation: collapseOut 0.2s linear;
+    }
+    
+    .collapse-in{
+        z-index: 2;
+        padding-top: 0;
+        padding-bottom: 0;
+        animation: collapseIn 0.2s linear;
+      }
+
+      @keyframes collapseIn{
+        from {
+            margin-top: -3em;
+            bottom: 20px;
+        }
+        to{
+            margin-top: 0;
+            bottom: 0;
+        }
+      }
+      @keyframes collapseOut{
+        0%{
+            margin-top: 0;
+            bottom: 0;
+        }
+        100% {
+            margin-top: -3em;
+            bottom: 20px;
+            
+        }
+      }
 }

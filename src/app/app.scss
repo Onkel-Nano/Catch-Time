@@ -36,15 +36,12 @@ ion-item.item-input-has-focus:hover ion-label,ion-item.item-input-has-focus:hove
 .calendar-input{
     background-color: white;
     height: 2em; 
-    border-radius:0.7em;
-    // animation: fade-to-black 2s;
+    border-bottom: 1px solid color($colors, third-main);
+    border-right: 1px solid color($colors, third-main);
+    border-bottom-right-radius: 0.5em;
 }
 .calendar-input:empty{
     color: white;
-}
-@keyframes fade-to-black{
-    from {color: white;}
-    to {color: black;}
 }
 
 .picker-layout{
