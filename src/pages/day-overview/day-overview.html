@@ -36,7 +36,7 @@
       <button id="submit" class="picker-button" icon-only type="submit" [disabled]="(workTimeForm.invalid || invalid)" ion-button>
         <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>
       </button>
-      <button id="delete" class="picker-button" type="button" icon-only (click)="deleteWorkTime()" style="background:crimson" ion-button>
+      <button id="delete" class="picker-button" type="button" icon-only (click)="presentConfirmDeletion()" [disabled]="!workTimeBackup.start" ion-button>
         <ion-icon name='trash'></ion-icon>
       </button>
     </ion-buttons>

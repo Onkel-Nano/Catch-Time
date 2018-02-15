@@ -1,6 +1,8 @@
-<ion-header >
+<ion-header>
   <ion-navbar>
     <ion-title color="light">
+        <!-- <link rel="icon" type="image/png" href="../assets/imgs/CatchTimeLogo.png" /> -->
+      <!-- <img src="../assets/imgs/CatchTimeLogo.png" alt=""> -->
       Catch Time
     </ion-title>
     <ion-buttons end>
@@ -9,19 +11,15 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-title class="past-overview">
+    <i class="fa fa-caret-left"></i>
+     05. Feb - 11. Feb 
+    <i class="fa fa-caret-right"></i>
+  </ion-title>
 </ion-header>
 
 <ion-content padding class="background-theme">
-  <div class="past-overview">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12>
-          <b>29. Jan</b> - <b>04. Feb</b>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-<hr>
+  
   <div class="calendar-overview">
     <ion-grid>
       <ion-row class="calendar-row" *ngFor="let weekDay of weekDays" (click)="loadDayOverview(weekDay)">
@@ -30,8 +28,8 @@
         </ion-col>
         <ion-col col-10>
           <ion-row>
-            <ion-col>
-              {{formatDate(weekDay.date)}}
+            <ion-col class="calendar-date">
+              <b>{{formatDate(weekDay.date)}}</b>
             </ion-col>
           </ion-row>
           <ion-row>

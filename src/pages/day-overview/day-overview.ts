@@ -6,6 +6,8 @@ import { StorageService } from '../../services/storage.service';
 import * as moment from 'moment';
 import 'moment/locale/de'
 import { WorkTimeService } from '../../services/work-time.service';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { locale } from 'moment';
 
 
 @IonicPage()
@@ -18,14 +20,15 @@ export class DayOverviewPage {
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private storageService: StorageService,
-    private workTimeService: WorkTimeService
+    private workTimeService: WorkTimeService,
+    private alertCtrl: AlertController
   ) {
-    this.workTimeOrigin = this.navParams.data;
     this.workTime = Object.assign({}, this.navParams.data);
+    this.workTimeBackup = this.navParams.data;
   }
 
   private workTime: WorkTimeDto;
-  private workTimeOrigin: WorkTimeDto;
+  private workTimeBackup: WorkTimeDto;
   private invalid = true;
   public customOptions: any = {
     buttons: [{
@@ -43,17 +46,17 @@ export class DayOverviewPage {
 
   validateForm() {
     if (
-      this.workTime.start == this.workTimeOrigin.start &&
-      this.workTime.end == this.workTimeOrigin.end &&
-      this.workTime.comment == this.workTimeOrigin.comment
+      this.workTime.start == this.workTimeBackup.start &&
+      this.workTime.end == this.workTimeBackup.end &&
+      this.workTime.comment == this.workTimeBackup.comment
     )
       this.invalid = true;
     else
       this.invalid = false;
   }
-  
+
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.workTimeBackup);
   }
 
   changeWorkTime() {
@@ -63,7 +66,42 @@ export class DayOverviewPage {
 
   deleteWorkTime() {
     this.storageService.deleteWorkTime(this.workTime);
-    this.viewCtrl.dismiss(null);
+    this.clearWorkTime();
+    this.viewCtrl.dismiss(this.workTimeBackup);
+  }
+
+  clearWorkTime() {
+    this.workTimeBackup.start = null;
+    this.workTimeBackup.end = null;
+    this.workTimeBackup.comment = '';
+  }
+
+  presentConfirmDeletion() {
+    let alert = this.alertCtrl.create({
+      title: 'LÖSCHEN',
+      message: 'Diese Arbeitszeit unwiderruflich löschen?',
+      buttons: [
+        {
+          text: 'Nein',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Löschen',
+          handler: () => {
+            this.storageService.deleteWorkTime(this.workTime);
+            this.clearWorkTime();
+            alert.dismiss().then(()=>{
+              this.viewCtrl.dismiss(this.workTimeBackup);
+            });
+            return false;
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   formatDate(date: any) {

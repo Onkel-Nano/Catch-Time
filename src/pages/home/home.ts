@@ -33,14 +33,17 @@ export class HomePage {
   ) { }
 
   ionViewWillEnter() {
-    this.setWorkedTimes(this.weekDays[0].date, this.weekDays[6].date);
-    
-    setTimeout(() => {
-      this.setWeekDays();
-    }, 100);
+    this.initWorkTime();
   }
 
-  setWorkedTimes(startDay: Date, endDay: Date) {
+  private initWorkTime() {
+    this.setWorkedTimes(this.weekDays[0].date, this.weekDays[6].date).then(
+      () => setTimeout(() => {
+        this.setWeekDays();
+      }, 100));
+  }
+
+  async setWorkedTimes(startDay: Date, endDay: Date) {
     this.resetWorkedTimes();
     if (moment(startDay).month() === moment(endDay).month()) {
       this.storageService.getWorkTime(startDay).then(
@@ -82,14 +85,21 @@ export class HomePage {
     this.navCtrl.push(NewWorkTimePage);
   }
   loadDayOverview(weekDay: WorkTimeDto) {
-    this.modalCtrl.create(DayOverviewPage, weekDay).present();
+    let dayModal = this.modalCtrl.create(DayOverviewPage, weekDay);
+    dayModal.onDidDismiss(
+      data => setTimeout(() => {
+        weekDay = data;
+        this.initWorkTime();
+      }, 0)
+    );
+    dayModal.present();
   }
   //End of Navigation
 
   formatDay(date: Date) {
     return moment(date).format('dd');
   }
-  formatDate(date:Date){
+  formatDate(date: Date) {
     return moment(date).format('DD. MMM YYYY')
   }
 }
