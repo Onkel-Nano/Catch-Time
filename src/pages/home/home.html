@@ -12,11 +12,12 @@
     </ion-buttons>
   </ion-navbar>
   <ion-title class="past-overview">
-    <button ion-button icon-only class="fa fa-caret-left btn-caret"></button>
+    <button *ngIf="isCollapseIn()" ion-button icon-only class="fa fa-caret-left btn-caret"></button>
     <button ion-button (click)="toggleCollapse()">
-      05. Feb - 11. Feb
+     <p *ngIf="isCollapseIn()">2018</p>
+     <p *ngIf="!isCollapseIn()">5. Feb - 12. Feb</p>
     </button>
-    <button ion-button icon-only class="fa fa-caret-right btn-caret"></button>
+    <button *ngIf="isCollapseIn()" ion-button icon-only class="fa fa-caret-right btn-caret"></button>
   </ion-title>
 </ion-header>
 
@@ -59,7 +60,6 @@
       <ion-label>Dezember</ion-label>
     </ion-item>
   </ion-list>
-
 
   <div *ngIf="!isCollapseIn()" class="calendar-overview">
     <ion-grid>

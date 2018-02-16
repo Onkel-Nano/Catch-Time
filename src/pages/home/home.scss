@@ -38,21 +38,22 @@ page-home {
     .past-overview button,.past-overview button:hover:focus{
         box-shadow: none;
         background: transparent;
+        margin: 0;
+        font-size: 0.9em;
     }
 
     .btn-caret{
-        padding-top: 0.7em !important;
+        display: inline-flex;
+        padding-left: 4px !important;
     }
 
     .collapse-out{
-        z-index: 2;
         margin-top: -3em;
         bottom: 20px;
         animation: collapseOut 0.2s linear;
     }
     
     .collapse-in{
-        z-index: 2;
         padding-top: 0;
         padding-bottom: 0;
         animation: collapseIn 0.2s linear;
