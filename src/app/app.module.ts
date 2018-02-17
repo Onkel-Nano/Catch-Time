@@ -14,13 +14,15 @@ import { DayOverviewPage } from '../pages/day-overview/day-overview';
 
 import { StorageService } from '../services/storage.service';
 import { WorkTimeService } from '../services/work-time.service';
+import { MonthOverviewComponent } from '../components/month-overview/month-overview';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NewWorkTimePage,
-    DayOverviewPage
+    DayOverviewPage,
+    MonthOverviewComponent
   ],
   imports: [
     BrowserModule,

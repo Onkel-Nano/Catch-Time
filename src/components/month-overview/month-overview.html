@@ -1,0 +1,28 @@
+<div class="month-calendar">
+  <ion-label class="day-name-tile">
+    Mo
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Di
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Mi
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Do
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Fr
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Sa
+  </ion-label>
+  <ion-label class="day-name-tile">
+    So
+  </ion-label>
+</div>
+<div class="month-calendar">
+  <ion-label class="day-tile" *ngFor="let day of daysArr; let i = index">
+    {{day}}
+  </ion-label>
+</div>

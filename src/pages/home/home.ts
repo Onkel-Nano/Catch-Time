@@ -27,6 +27,22 @@ export class HomePage {
     { date: moment().day(6) },
     { date: moment().day(7) },
   ]
+  private months: any[] = [
+    { name: 'Januar', number: 0 },
+    { name: 'Februar', number: 1 },
+    { name: 'März', number: 2 },
+    { name: 'April', number: 3 },
+    { name: 'Mai', number: 4 },
+    { name: 'Juni', number: 5 },
+    { name: 'Juli', number: 6 },
+    { name: 'August', number: 7 },
+    { name: 'September', number: 8 },
+    { name: 'Oktober', number: 9 },
+    { name: 'November', number: 10 },
+    { name: 'Dezember', number: 11 },
+  ];
+  private selectedMonth: number;
+  private isMonthOverview: boolean = false;
 
   constructor(public navCtrl: NavController,
     private storageService: StorageService,
@@ -37,11 +53,17 @@ export class HomePage {
     this.initWorkTime();
   }
 
-  toggleCollapse(){
+  showMonth(month: number) {
+    this.selectedMonth = month;
+    this.isMonthOverview = true;
+    this.toggleCollapse();
+  }
+
+  toggleCollapse() {
     this.collapseIn = !this.collapseIn;
   }
 
-  isCollapseIn(){
+  isCollapseIn() {
     return this.collapseIn;
   }
 

@@ -1,0 +1,25 @@
+month-overview {
+    .day-tile{
+        display: inline-block;
+        width: 45px;
+        height: 72px;
+        margin: 1px;
+        font-weight: bold;
+    }
+
+    .day-name-tile{
+        display: inline-block;
+        width: 45px;
+        font-size: 20px;
+        margin-right: 0;
+        margin-left: -2px;
+        color: color($colors, third-main);
+        font-weight: bold;
+    }
+
+    .month-calendar{
+        width: 24em;
+        text-align: center;
+        margin: auto;
+    }
+}

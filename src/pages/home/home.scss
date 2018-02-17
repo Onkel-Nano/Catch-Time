@@ -32,12 +32,14 @@ page-home {
         text-align: center;
         display: block;
     }
+
     .past-overview div{
         font-weight: lighter !important;
     }
+    
     .past-overview button,.past-overview button:hover:focus{
         box-shadow: none;
-        background: transparent;
+        background: transparent !important;
         margin: 0;
         font-size: 0.9em;
     }
