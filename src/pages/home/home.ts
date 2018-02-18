@@ -53,7 +53,7 @@ export class HomePage {
     this.initWorkTime();
   }
 
-  showMonth(month: number) {
+  showMonth(month: any) {
     this.selectedMonth = month;
     this.isMonthOverview = true;
     this.toggleCollapse();
@@ -63,7 +63,7 @@ export class HomePage {
     this.collapseIn = !this.collapseIn;
   }
 
-  isCollapseIn() {
+  isCollapse() {
     return this.collapseIn;
   }
 

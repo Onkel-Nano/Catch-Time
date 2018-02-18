@@ -28,6 +28,9 @@ export class WorkTimeService {
         return formattedWorkTime;
     }
     
+    /*
+        removes date from array for deleting it
+    */
     filterWorkTimeArray(workedTime: WorkTimeDto[], filter: Date, target: WorkTimeDto[]){
         if(workedTime){
             workedTime.forEach(w => {
