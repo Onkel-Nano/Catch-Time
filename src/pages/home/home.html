@@ -10,13 +10,17 @@
     </ion-buttons>
   </ion-navbar>
   <ion-title class="past-overview">
-    <button *ngIf="isCollapse()" ion-button icon-only class="fa fa-caret-left btn-caret"></button>
-    <button ion-button (click)="toggleCollapse()">
-      <p *ngIf="isCollapse()">2018</p>
-      <p *ngIf="!isCollapse() && !isMonthOverview">19. Feb - 25. Feb</p>
-      <p *ngIf="!isCollapse() && isMonthOverview">{{selectedMonth.name}}</p>
+    <button (click)="previousDate()" ion-button>
+      <ion-icon class="fa fa-caret-left"></ion-icon>
     </button>
-    <button *ngIf="isCollapse()" ion-button icon-only class="fa fa-caret-right btn-caret"></button>
+    <button class="date-overview" ion-button (click)="toggleCollapse()">
+      <p *ngIf="isCollapse()">{{selectedYear}}</p>
+      <p *ngIf="!isCollapse() && !isMonthOverview">19. Feb - 25. Feb</p>
+      <p *ngIf="!isCollapse() && isMonthOverview">{{formatToMonth(selectedMonth)}}</p>
+    </button>
+    <button (click)="nextDate()" ion-button>
+      <ion-icon class="fa fa-caret-right"></ion-icon>
+    </button>
   </ion-title>
 </ion-header>
 
@@ -27,7 +31,7 @@
       <ion-label>{{month.name}}</ion-label>
     </ion-item>
   </ion-list>
-  <month-overview *ngIf="isMonthOverview && !isCollapse()" [month]="selectedMonth.number" [year]=2018></month-overview>
+  <month-overview *ngIf="isMonthOverview && !isCollapse()" [month]="selectedMonth" [year]=selectedYear></month-overview>
 
   <div *ngIf="!isCollapse() && !isMonthOverview" class="calendar-overview">
     <ion-grid>

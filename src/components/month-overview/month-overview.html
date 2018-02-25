@@ -21,8 +21,9 @@
     So
   </ion-label>
 </div>
+<hr>
 <div class="month-calendar">
-  <ion-label class="day-tile" *ngFor="let day of daysArr; let i = index">
-    {{day}}
+  <ion-label [ngClass]="{'not-in-month': !day.inMonth, 'today': todayCheck(day)}" class="day-tile" *ngFor="let day of daysArr; let i = index">
+    {{day.day}}
   </ion-label>
 </div>

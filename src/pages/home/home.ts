@@ -42,6 +42,7 @@ export class HomePage {
     { name: 'Dezember', number: 11 },
   ];
   private selectedMonth: number;
+  private selectedYear: number = moment().year();
   private isMonthOverview: boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -53,8 +54,50 @@ export class HomePage {
     this.initWorkTime();
   }
 
+  previousDate() {
+    if (!this.isCollapse() && this.isMonthOverview) {
+      this.previousMonth();
+    } else if (!this.isCollapse() && !this.isMonthOverview) {
+      return
+    } else if (this.isCollapse()) {
+      this.previousYear();
+    }
+  }
+
+  private previousMonth() {
+    if (this.selectedMonth == 0) {
+      this.previousYear();
+    }
+    this.selectedMonth = moment().month(this.selectedMonth).subtract(1, 'months').month();
+  }
+
+  private previousYear() {
+    this.selectedYear = moment().year(this.selectedYear).subtract(1, 'years').year();
+  }
+
+  nextDate() {
+    if (!this.isCollapse() && this.isMonthOverview) {
+      this.nextMonth();
+    } else if (!this.isCollapse() && !this.isMonthOverview) {
+      return
+    } else if (this.isCollapse()) {
+      this.nextYear();
+    }
+  }
+
+  private nextMonth() {
+    if (this.selectedMonth == 11) {
+      this.nextYear();
+    }
+    this.selectedMonth = moment().month(this.selectedMonth).add(1, 'months').month();
+  }
+
+  private nextYear() {
+    this.selectedYear = moment().year(this.selectedYear).add(1, 'years').year();
+  }
+
   showMonth(month: any) {
-    this.selectedMonth = month;
+    this.selectedMonth = month.number;
     this.isMonthOverview = true;
     this.toggleCollapse();
   }
@@ -130,7 +173,12 @@ export class HomePage {
   formatDay(date: Date) {
     return moment(date).format('dd');
   }
+
   formatDate(date: Date) {
     return moment(date).format('DD. MMM YYYY')
+  }
+
+  formatToMonth(month: number) {
+    return moment().year(this.selectedYear).month(month).format('MMMM YY');
   }
 }
