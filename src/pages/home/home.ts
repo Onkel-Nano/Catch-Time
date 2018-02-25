@@ -17,6 +17,7 @@ import { DayOverviewPage } from '../day-overview/day-overview';
 export class HomePage {
 
   workedTimes: WorkTimeDto[][] = [];
+  private collapseIn: boolean = false;
   private weekDays: any[] = [
     { date: moment().day(1) },
     { date: moment().day(2) },
@@ -26,6 +27,23 @@ export class HomePage {
     { date: moment().day(6) },
     { date: moment().day(7) },
   ]
+  private months: any[] = [
+    { name: 'Januar', number: 0 },
+    { name: 'Februar', number: 1 },
+    { name: 'März', number: 2 },
+    { name: 'April', number: 3 },
+    { name: 'Mai', number: 4 },
+    { name: 'Juni', number: 5 },
+    { name: 'Juli', number: 6 },
+    { name: 'August', number: 7 },
+    { name: 'September', number: 8 },
+    { name: 'Oktober', number: 9 },
+    { name: 'November', number: 10 },
+    { name: 'Dezember', number: 11 },
+  ];
+  private selectedMonth: number;
+  private selectedYear: number = moment().year();
+  private isMonthOverview: boolean = false;
 
   constructor(public navCtrl: NavController,
     private storageService: StorageService,
@@ -33,14 +51,73 @@ export class HomePage {
   ) { }
 
   ionViewWillEnter() {
-    this.setWorkedTimes(this.weekDays[0].date, this.weekDays[6].date);
-    
-    setTimeout(() => {
-      this.setWeekDays();
-    }, 100);
+    this.initWorkTime();
   }
 
-  setWorkedTimes(startDay: Date, endDay: Date) {
+  previousDate() {
+    if (!this.isCollapse() && this.isMonthOverview) {
+      this.previousMonth();
+    } else if (!this.isCollapse() && !this.isMonthOverview) {
+      return
+    } else if (this.isCollapse()) {
+      this.previousYear();
+    }
+  }
+
+  private previousMonth() {
+    if (this.selectedMonth == 0) {
+      this.previousYear();
+    }
+    this.selectedMonth = moment().month(this.selectedMonth).subtract(1, 'months').month();
+  }
+
+  private previousYear() {
+    this.selectedYear = moment().year(this.selectedYear).subtract(1, 'years').year();
+  }
+
+  nextDate() {
+    if (!this.isCollapse() && this.isMonthOverview) {
+      this.nextMonth();
+    } else if (!this.isCollapse() && !this.isMonthOverview) {
+      return
+    } else if (this.isCollapse()) {
+      this.nextYear();
+    }
+  }
+
+  private nextMonth() {
+    if (this.selectedMonth == 11) {
+      this.nextYear();
+    }
+    this.selectedMonth = moment().month(this.selectedMonth).add(1, 'months').month();
+  }
+
+  private nextYear() {
+    this.selectedYear = moment().year(this.selectedYear).add(1, 'years').year();
+  }
+
+  showMonth(month: any) {
+    this.selectedMonth = month.number;
+    this.isMonthOverview = true;
+    this.toggleCollapse();
+  }
+
+  toggleCollapse() {
+    this.collapseIn = !this.collapseIn;
+  }
+
+  isCollapse() {
+    return this.collapseIn;
+  }
+
+  private initWorkTime() {
+    this.setWorkedTimes(this.weekDays[0].date, this.weekDays[6].date).then(
+      () => setTimeout(() => {
+        this.setWeekDays();
+      }, 100));
+  }
+
+  async setWorkedTimes(startDay: Date, endDay: Date) {
     this.resetWorkedTimes();
     if (moment(startDay).month() === moment(endDay).month()) {
       this.storageService.getWorkTime(startDay).then(
@@ -82,15 +159,26 @@ export class HomePage {
     this.navCtrl.push(NewWorkTimePage);
   }
   loadDayOverview(weekDay: WorkTimeDto) {
-    // let mockWorkTime = JSON.parse(JSON.stringify(weekDay));
-    this.modalCtrl.create(DayOverviewPage, weekDay).present();
+    let dayModal = this.modalCtrl.create(DayOverviewPage, weekDay);
+    dayModal.onDidDismiss(
+      data => setTimeout(() => {
+        weekDay = data;
+        this.initWorkTime();
+      }, 0)
+    );
+    dayModal.present();
   }
   //End of Navigation
 
   formatDay(date: Date) {
     return moment(date).format('dd');
   }
-  formatDate(date:Date){
+
+  formatDate(date: Date) {
     return moment(date).format('DD. MMM YYYY')
+  }
+
+  formatToMonth(month: number) {
+    return moment().year(this.selectedYear).month(month).format('MMMM YY');
   }
 }

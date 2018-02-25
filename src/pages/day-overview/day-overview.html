@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title class="text-c">
-    {{formatDate(workTime.date)}} 
+    <ion-title>
+      {{formatDate(workTime.date)}}
     </ion-title>
-    <ion-buttons>
+    <ion-buttons start>
       <button (click)="dismiss()" ion-button icon-only>
         <ion-icon name="close"></ion-icon>
       </button>
@@ -13,34 +13,33 @@
 
 <ion-content class="background-theme" padding>
   <form (ngSubmit)="changeWorkTime()" #workTimeForm="ngForm">
-      <ion-list class="picker-layout" inset>
-        <ion-item>
-          <ion-label>Von</ion-label>
-          <ion-datetime class="picker-input" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.start"
-          doneText="Fertig" cancelText="Abbrechen" name="start" required></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label>Bis</ion-label>
-          <ion-label>
-            <p *ngIf="workTime.dayOverflow" class="day-overflow">(Folgetag)</p>
-          </ion-label>
-          <ion-datetime class="picker-input" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.end" 
-          doneText="Fertig" cancelText="Abbrechen" name="end" required></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label class="fs-1" stacked>Anmerkungen</ion-label>
-          <ion-textarea type="textarea" name="comment" [(ngModel)]="workTime.comment" placeholder="Ist etwas besonderes vorgefallen?"></ion-textarea>
-        </ion-item>
-      </ion-list>
-
-      <ion-buttons class="text-c">
-        <button id="submit" class="picker-button" icon-only type="submit" [disabled]="workTimeForm.invalid" ion-button>
-          <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>
-        </button>
-        <button id="delete" class="picker-button" type="button" icon-only (click)="deleteWorkTime()" style="background:crimson" ion-button>
-          <ion-icon name='trash'></ion-icon>
-        </button>
-      </ion-buttons>
-    </form>
+    <ion-list class="picker-layout" inset>
+      <ion-item>
+        <ion-label>Von</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.start" doneText="Fertig" 
+        cancelText="" name="start" required></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Bis</ion-label>
+        <ion-label *ngIf="workTime.end">
+          <p *ngIf="workTime.dayOverflow" class="day-overflow">(Folgetag)</p>
+        </ion-label>
+        <ion-datetime [pickerOptions]="customOptions" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="workTime.end" doneText="Fertig"
+          cancelText="" name="end" required></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label class="fs-1" stacked>Anmerkungen</ion-label>
+        <ion-textarea type="textarea" name="comment" [(ngModel)]="workTime.comment" placeholder="Ist etwas besonderes vorgefallen?"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-buttons class="text-c">
+      <button id="submit" class="picker-button" icon-only type="submit" [disabled]="(workTimeForm.invalid || invalid)" ion-button>
+        <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>
+      </button>
+      <button id="delete" class="picker-button" type="button" icon-only (click)="presentConfirmDeletion()" [disabled]="!workTimeBackup.start" ion-button>
+        <ion-icon name='trash'></ion-icon>
+      </button>
+    </ion-buttons>
+  </form>
 
 </ion-content>

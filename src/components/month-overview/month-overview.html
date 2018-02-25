@@ -1,0 +1,29 @@
+<div class="month-calendar">
+  <ion-label class="day-name-tile">
+    Mo
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Di
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Mi
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Do
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Fr
+  </ion-label>
+  <ion-label class="day-name-tile">
+    Sa
+  </ion-label>
+  <ion-label class="day-name-tile">
+    So
+  </ion-label>
+</div>
+<hr>
+<div class="month-calendar">
+  <ion-label [ngClass]="{'not-in-month': !day.inMonth, 'today': todayCheck(day)}" class="day-tile" *ngFor="let day of daysArr; let i = index">
+    {{day.day}}
+  </ion-label>
+</div>

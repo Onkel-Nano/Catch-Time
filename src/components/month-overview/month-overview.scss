@@ -1,0 +1,35 @@
+month-overview {
+    .day-tile{
+        display: inline-block;
+        width: 45px;
+        height: 72px;
+        margin: 1px;
+        font-weight: bold;
+    }
+
+    .day-name-tile{
+        display: inline-block;
+        width: 45px;
+        font-size: 1.3em;
+        margin-right: 0;
+        margin-left: -2px;
+        color: color($colors, third-main);
+        margin-bottom: 0;
+    }
+
+    .month-calendar{
+        width: 24em;
+        text-align: center;
+        margin: auto;
+    }
+
+    .not-in-month{
+        opacity: 0.3;
+    }
+
+    .today{
+        border: 1px solid color($colors, main);
+        background: rgba(127, 127, 127, 0.329);
+        color: color($colors, main);
+    }
+}

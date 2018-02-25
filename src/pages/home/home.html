@@ -1,28 +1,39 @@
-<ion-header >
+<ion-header>
   <ion-navbar>
-    <ion-title color="light" class="text-c">
+    <ion-title>
       Catch Time
     </ion-title>
     <ion-buttons end>
       <button (click)="loadNewWorkTime()" ion-button icon-only>
-        <ion-icon color="light" name="add"></ion-icon>
+        <ion-icon ios="ios-time-outline" md="md-time"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-title class="past-overview">
+    <button (click)="previousDate()" ion-button>
+      <ion-icon class="fa fa-caret-left"></ion-icon>
+    </button>
+    <button class="date-overview" ion-button (click)="toggleCollapse()">
+      <p *ngIf="isCollapse()">{{selectedYear}}</p>
+      <p *ngIf="!isCollapse() && !isMonthOverview">19. Feb - 25. Feb</p>
+      <p *ngIf="!isCollapse() && isMonthOverview">{{formatToMonth(selectedMonth)}}</p>
+    </button>
+    <button (click)="nextDate()" ion-button>
+      <ion-icon class="fa fa-caret-right"></ion-icon>
+    </button>
+  </ion-title>
 </ion-header>
 
 <ion-content padding class="background-theme">
-  <div class="past-overview">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12>
-          <b>29. Jan</b> - <b>04. Feb</b>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-<hr>
-  <div class="calendar-overview">
+  <ion-list>
+    <ion-item [ngClass]="isCollapse() ? 'collapse-in' : 'collapse-out'" *ngFor="let month of months"
+     (click)="showMonth(month)">
+      <ion-label>{{month.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <month-overview *ngIf="isMonthOverview && !isCollapse()" [month]="selectedMonth" [year]=selectedYear></month-overview>
+
+  <div *ngIf="!isCollapse() && !isMonthOverview" class="calendar-overview">
     <ion-grid>
       <ion-row class="calendar-row" *ngFor="let weekDay of weekDays" (click)="loadDayOverview(weekDay)">
         <ion-col class="calendar-day">
@@ -30,8 +41,8 @@
         </ion-col>
         <ion-col col-10>
           <ion-row>
-            <ion-col>
-              {{formatDate(weekDay.date)}}
+            <ion-col class="calendar-date">
+              <b>{{formatDate(weekDay.date)}}</b>
             </ion-col>
           </ion-row>
           <ion-row>

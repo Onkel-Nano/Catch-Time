@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 import { ReactiveFormsModule } from '@angular/forms';
-import moment from 'moment'
 
 import { MyApp } from './app.component';
 
@@ -14,13 +13,16 @@ import { NewWorkTimePage } from '../pages/new-work-time/new-work-time';
 import { DayOverviewPage } from '../pages/day-overview/day-overview';
 
 import { StorageService } from '../services/storage.service';
+import { WorkTimeService } from '../services/work-time.service';
+import { MonthOverviewComponent } from '../components/month-overview/month-overview';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NewWorkTimePage,
-    DayOverviewPage
+    DayOverviewPage,
+    MonthOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { StorageService } from '../services/storage.service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    StorageService
+    StorageService,
+    WorkTimeService
   ]
 })
 export class AppModule {}

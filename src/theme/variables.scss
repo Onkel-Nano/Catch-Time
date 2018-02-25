@@ -35,11 +35,13 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #488aff,
-  main:       rgba(0, 0, 0, 0.849),
-  secondary-main:  rgba(0, 0, 0, 0.171),
+  main:       #df274c,
+  secondary-main:  rgba(223, 39, 76, 0.816),
+  third-main: rgba(1, 189, 183, 0.611),
   submit:  yellowgreen,
   danger:     #dc143c,
-  background: rgb(109, 109, 109),
+  background: white,
+  list-border: rgba(222, 222, 222, 0.843),
   dark:       #222,
   light:    white
 );
